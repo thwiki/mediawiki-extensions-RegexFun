@@ -720,12 +720,12 @@ class ExtRegexFun {
 
 	public static function onParserClearState( &$parser ) {
 		//cleanup to avoid conflicts with job queue or Special:Import
-		/*
+
 		$parser->mExtRegexFun = array();
 		self::setLastMatches( $parser, null );
 		self::setLastPattern( $parser, '' );
 		self::setLastSubject( $parser, '' );
-		*/
+
 		$parser->mExtRegexFun['counter'] = 0;
 
 		return true;
@@ -762,7 +762,7 @@ class ExtRegexFun {
 	 * @param PPFrame $frame
 	 * @return array|null
 	 */
-	public static function getLastMatches( PPFrame $frame ) {
+	public static function getLastMatches( $frame ) {
 
 		if( isset( $frame->mExtRegexFun['lastMatches'] ) ) {
 
@@ -781,27 +781,27 @@ class ExtRegexFun {
 		}
 		return null;
 	}
-	protected static function setLastMatches( PPFrame $frame, $value ) {
+	protected static function setLastMatches( $frame, $value ) {
 		$frame->mExtRegexFun['lastMatches'] = $value;
 	}
 
-	public static function getLastPattern( PPFrame $frame ) {
+	public static function getLastPattern( $frame ) {
 		if( isset( $frame->mExtRegexFun['lastPattern'] ) ) {
 			return $frame->mExtRegexFun['lastPattern'];
 		}
 		return '';
 	}
-	protected static function setLastPattern( PPFrame $frame, $value ) {
+	protected static function setLastPattern( $frame, $value ) {
 		$frame->mExtRegexFun['lastPattern'] = $value;
 	}
 
-	public static function getLastSubject( PPFrame $frame ) {
+	public static function getLastSubject( $frame ) {
 		if( isset( $frame->mExtRegexFun['lastSubject'] ) ) {
 			return $frame->mExtRegexFun['lastSubject'];
 		}
 		return '';
 	}
-	protected static function setLastSubject( PPFrame $frame, $value ) {
+	protected static function setLastSubject( $frame, $value ) {
 		$frame->mExtRegexFun['lastSubject'] = $value;
 	}
 
