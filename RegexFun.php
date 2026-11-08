@@ -1,4 +1,6 @@
 <?php
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\Parser;
 /**
  * 'Regex Fun' is a MediaWiki extension which adds parser functions for performing regular
  * expression searches and replacements.
@@ -198,7 +200,7 @@ class ExtRegexFun {
 		global $egRegexFunMaxRegexPerParse;
 		return self::msgError(
 			'regexfun-limit-exceed',
-			\MediaWiki\MediaWikiServices::getInstance()->getContentLanguage()->formatNum( $egRegexFunMaxRegexPerParse )
+			\MediaWikiServices::getInstance()->getContentLanguage()->formatNum( $egRegexFunMaxRegexPerParse )
 		);
 	}
 
@@ -214,10 +216,10 @@ class ExtRegexFun {
 		$params = func_get_args();
 		array_shift( $params );
 
-		$msgHtml = Html::rawElement( // don't escape content since this is not HTML but wikitext!
+		$msgHtml = \MediaWiki\Html\Html::rawElement( // don't escape content since this is not HTML but wikitext!
 			'span',
 			array( 'class' => 'error' ),
-			wfMessage( $message, $params )->inContentLanguage()->toString() // parser functions are mainly used in wikitext within wiki pages!
+			wfMessage( $message, $params )->inContentLanguage()->text() // parser functions are mainly used in wikitext within wiki pages!
 		);
 		// 'noparse' true for <nowiki>, 'isHTML' false for #iferror!
 		return array( $msgHtml, 'noparse' => true, 'isHTML' => false );
